@@ -1,14 +1,14 @@
 # Schasch-saas-niei 
-# TODO:
+## TODO
 
--Name
+- [ ] Name
 
--Level
+- [ ] Level
 
--Blocks
+- [ ] Blocks
 
--Enemies
+- [ ] Enemies
 
--Sounds
+- [ ] Sounds
 
--Animations
+- [ ] Animations
