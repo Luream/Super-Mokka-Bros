@@ -13,7 +13,7 @@ public class MainMenuScript : MonoBehaviour {
     public Transform backgroundTransform;
 
 	void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
