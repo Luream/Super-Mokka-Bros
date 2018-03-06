@@ -1,1 +1,14 @@
-# Schasch-saas-niei
+# Schasch-saas-niei 
+# TODO:
+
+-Name
+
+-Level
+
+-Blocks
+
+-Enemies
+
+-Sounds
+
+-Animations
