@@ -1,44 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PlayerScript : MonoBehaviour {
-
+public class PlayerScript : MonoBehaviour
+{
     public float movementSpeed;
     public float jumpSpeed;
-    public bool advancedJump;
     public float fallMultiplier;
     public float lowJumpMultiplier;
     public bool readyToJump;
+    public Vector3 spawnPoint;
 
     private Rigidbody2D rb;
 
-	void Start ()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-	}
-	
-	void FixedUpdate ()
+        spawnPoint = new Vector3();
+    }
+
+    private void FixedUpdate()
     {
-		if(getLeftInput())
+        if (getLeftInput())
         {
             rb.AddForce(-transform.right * movementSpeed);
         }
-        if(getRightInput())
+        if (getRightInput())
         {
             rb.AddForce(transform.right * movementSpeed);
         }
 
-        if (advancedJump)
+        if (rb.velocity.y < 0)
         {
-            if (rb.velocity.y < 0)
-            {
-                rb.AddForce(Vector2.up * Physics.gravity.y * (fallMultiplier - 1));
-            }
-            else if (rb.velocity.y > 0 && !getUpInput())
-            {
-                rb.AddForce(Vector2.up * Physics.gravity.y * (lowJumpMultiplier - 1));
-            }
+            rb.AddForce(Vector2.up * Physics.gravity.y * (fallMultiplier - 1));
+        }
+        else if (rb.velocity.y > 0 && !getUpInput())
+        {
+            rb.AddForce(Vector2.up * Physics.gravity.y * (lowJumpMultiplier - 1));
         }
     }
 
@@ -50,9 +47,9 @@ public class PlayerScript : MonoBehaviour {
             readyToJump = false;
         }
 
-        if(transform.position.y < -10)
+        if (transform.position.y < -3)
         {
-            transform.position = new Vector3();
+            transform.position = spawnPoint;
         }
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector3.down, 1.1f);
@@ -94,7 +91,7 @@ public class PlayerScript : MonoBehaviour {
             return false;
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         foreach (ContactPoint2D contact in collision.contacts)
         {
@@ -102,5 +99,17 @@ public class PlayerScript : MonoBehaviour {
                 readyToJump = true;
             Debug.DrawRay(contact.point, contact.normal, Color.white);
         }
+    }
+
+    // Wird bei Kollision ausgeführt
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Wenn das kolldierte Objekt den Tag Enemy hat, wird der Spieler zum Spawnpoint teleportiert
+        if (collision.gameObject.tag == "Enemy")
+        {
+            transform.position = spawnPoint;
+        }
+        else if (collision.gameObject.tag == "End")
+            SceneManager.LoadSceneAsync("MainMenu");
     }
 }
