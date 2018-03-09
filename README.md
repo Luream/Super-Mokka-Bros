@@ -1,7 +1,7 @@
-# Schasch-saas-niei 
+# Super Mokka Bros
 ## TODO
 
-- [ ] Name
+- [x] Name
 
 - [ ] Level
 
