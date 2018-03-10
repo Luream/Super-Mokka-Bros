@@ -7,7 +7,7 @@
 
 - [ ] Blocks
 
-- [ ] Enemies
+- [x] Enemies
 
 - [ ] Sounds
 
