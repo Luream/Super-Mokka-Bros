@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     public float lowJumpMultiplier;
     public bool readyToJump;
     public Vector3 spawnPoint;
+    public string nextLevel;
 
     private Rigidbody2D rb;
 
@@ -110,6 +111,6 @@ public class PlayerScript : MonoBehaviour
             transform.position = spawnPoint;
         }
         else if (collision.gameObject.tag == "End")
-            SceneManager.LoadSceneAsync("MainMenu");
+            SceneManager.LoadSceneAsync(nextLevel);
     }
 }
