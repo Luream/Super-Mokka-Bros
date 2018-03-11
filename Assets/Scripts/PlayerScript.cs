@@ -7,7 +7,10 @@ public class PlayerScript : MonoBehaviour
     public float jumpSpeed;
     public float fallMultiplier;
     public float lowJumpMultiplier;
+    public float wallFallBreakMultiplier;
     public bool readyToJump;
+    public bool readyToWallJump;
+    public Vector3 wallJumpDirection;
     public Vector3 spawnPoint;
     public string nextLevel;
 
@@ -38,6 +41,11 @@ public class PlayerScript : MonoBehaviour
         {
             rb.AddForce(Vector2.up * Physics.gravity.y * (lowJumpMultiplier - 1));
         }
+
+        if(rb.velocity.y < 0 && readyToWallJump)
+        {
+            rb.AddForce(-Vector2.up * Physics.gravity.y * wallFallBreakMultiplier);
+        }
     }
 
     private void Update()
@@ -47,17 +55,24 @@ public class PlayerScript : MonoBehaviour
             rb.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
             readyToJump = false;
         }
+        else if (getUpDownInput() && readyToWallJump)
+        {
+            rb.AddForce(transform.up * jumpSpeed + wallJumpDirection * jumpSpeed, ForceMode2D.Impulse);
+            readyToWallJump = false;
+        }
 
         if (transform.position.y < -3)
         {
             transform.position = spawnPoint;
         }
 
+        /*
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector3.down, 1.1f);
         readyToJump = false;
         foreach (RaycastHit2D hit in hits)
             if (hit.transform.gameObject != gameObject)
                 readyToJump = true;
+        */
     }
 
     private bool getLeftInput()
@@ -98,8 +113,24 @@ public class PlayerScript : MonoBehaviour
         {
             if (contact.normal.y > Mathf.Abs(contact.normal.x))
                 readyToJump = true;
+            else if (contact.normal.x > 0 && getLeftInput())
+            {
+                readyToWallJump = true;
+                wallJumpDirection = Vector3.right;
+            }
+            else if (contact.normal.x < 0 && getRightInput())
+            {
+                readyToWallJump = true;
+                wallJumpDirection = Vector3.left;
+            }
             Debug.DrawRay(contact.point, contact.normal, Color.white);
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        readyToJump = false;
+        readyToWallJump = false;
     }
 
     // Wird bei Kollision ausgeführt
