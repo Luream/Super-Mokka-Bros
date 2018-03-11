@@ -11,3 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/TestScene.unity
     guid: 872e4fb7f5f1970419ad03c3e62a9809
+  - enabled: 1
+    path: Assets/Scene/Level 1.unity
+    guid: c448fb384b72ef24b8df84fc5284bd8f
+  - enabled: 1
+    path: Assets/Scene/Psycho.unity
+    guid: 751eea5a14e75ce45ad41a1b9b80648b
