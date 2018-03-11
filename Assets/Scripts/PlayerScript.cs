@@ -22,6 +22,11 @@ public class PlayerScript : MonoBehaviour
         spawnPoint = new Vector3();
     }
 
+    public void SetSavePoint(Vector3 newSpawnPoint)
+    {
+        spawnPoint = newSpawnPoint;
+    }
+
     private void FixedUpdate()
     {
         if (getLeftInput())
@@ -142,6 +147,8 @@ public class PlayerScript : MonoBehaviour
             transform.position = spawnPoint;
         }
         else if (collision.gameObject.tag == "End")
+        {
             SceneManager.LoadSceneAsync(nextLevel);
+        }
     }
 }
