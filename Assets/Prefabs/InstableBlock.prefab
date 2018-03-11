@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212948172447222584}
   - component: {fileID: 61453267251082864}
   m_Layer: 0
-  m_Name: Grass (9)
+  m_Name: InstableBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
