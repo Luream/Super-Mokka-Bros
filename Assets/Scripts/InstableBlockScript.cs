@@ -5,9 +5,15 @@ using UnityEngine;
 
 public class InstableBlockScript : MonoBehaviour {
 
-
     public Boolean instantDestroy = false;
     public Boolean onlyTriggeredFromAbove = true;
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> a640cac8fb4e6612d0fb3d48d83b4d06688507d2
+    //private GameObject iB = GameObject.Find("/Prefabs/InstableBlock");
+    //private BoxCollider2D bC = iB.GetComponent<BoxCollider2D>();
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,7 +21,14 @@ public class InstableBlockScript : MonoBehaviour {
         
         if(collision.gameObject.CompareTag("Player") && instantDestroy && trigger())
         {
-            Destroy(gameObject);
+<<<<<<< HEAD
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
+=======
+>>>>>>> a640cac8fb4e6612d0fb3d48d83b4d06688507d2
+            BoxCollider2D bc = GetComponent<BoxCollider2D>();
+            bc.enabled = false;
+            gameObject.GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -23,7 +36,14 @@ public class InstableBlockScript : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Player") && trigger())
         {
-            Destroy(gameObject);
+<<<<<<< HEAD
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
+=======
+>>>>>>> a640cac8fb4e6612d0fb3d48d83b4d06688507d2
+            BoxCollider2D bc = GetComponent<BoxCollider2D>();
+            bc.enabled = false;
+            gameObject.GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -46,5 +66,12 @@ public class InstableBlockScript : MonoBehaviour {
         {
             return true;
         }
+    }
+
+    public void restoreIB()
+    {
+        BoxCollider2D bc = GetComponent<BoxCollider2D>();
+        bc.enabled = true;
+        gameObject.GetComponent<Renderer>().enabled = true;
     }
 }
