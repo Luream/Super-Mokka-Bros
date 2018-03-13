@@ -9,13 +9,18 @@ public class InstableBlockScript : MonoBehaviour {
     public Boolean instantDestroy = false;
     public Boolean onlyTriggeredFromAbove = true;
 
+    //private GameObject iB = GameObject.Find("/Prefabs/InstableBlock");
+    //private BoxCollider2D bC = iB.GetComponent<BoxCollider2D>();
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         
         
         if(collision.gameObject.CompareTag("Player") && instantDestroy && trigger())
         {
-            Destroy(gameObject);
+            BoxCollider2D bc = GetComponent<BoxCollider2D>();
+            bc.enabled = false;
+            gameObject.GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -23,7 +28,9 @@ public class InstableBlockScript : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Player") && trigger())
         {
-            Destroy(gameObject);
+            BoxCollider2D bc = GetComponent<BoxCollider2D>();
+            bc.enabled = false;
+            gameObject.GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -46,5 +53,12 @@ public class InstableBlockScript : MonoBehaviour {
         {
             return true;
         }
+    }
+
+    public void restoreIB()
+    {
+        BoxCollider2D bc = GetComponent<BoxCollider2D>();
+        bc.enabled = true;
+        gameObject.GetComponent<Renderer>().enabled = true;
     }
 }
