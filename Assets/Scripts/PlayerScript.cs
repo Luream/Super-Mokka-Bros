@@ -15,11 +15,13 @@ public class PlayerScript : MonoBehaviour
     public string nextLevel;
 
     private Rigidbody2D rb;
+    private AudioSource audioSource;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spawnPoint = new Vector3();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void SetSavePoint(Vector3 newSpawnPoint)
@@ -59,11 +61,13 @@ public class PlayerScript : MonoBehaviour
         {
             rb.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
             readyToJump = false;
+            audioSource.Play();
         }
         else if (getUpDownInput() && readyToWallJump)
         {
             rb.AddForce(transform.up * jumpSpeed + wallJumpDirection * jumpSpeed, ForceMode2D.Impulse);
             readyToWallJump = false;
+            audioSource.Play();
         }
 
         if (transform.position.y < -3)
